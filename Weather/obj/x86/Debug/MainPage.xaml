@@ -44,20 +44,24 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
 
 
-        <Button x:ConnectionId='1' x:Name="button" Grid.Row="1" Grid.Column="1" Content="Get Data" HorizontalAlignment="Center"  VerticalAlignment="Bottom"                     />
-        <TextBlock x:ConnectionId='2' x:Name="textBlock123" Grid.Row="2" FontSize="20"  Grid.Column="1" Grid.RowSpan="2" Text="This is the textbox" VerticalAlignment="Center"/>
-        <ComboBox x:ConnectionId='3' x:Name="comboBox"  Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="92,0,92,0" Width="164">
+        <Button x:ConnectionId='1' x:Name="button" Grid.Row="1" Grid.Column="0" Content="Get Data" HorizontalAlignment="Center"  VerticalAlignment="Bottom"                     />
+        <TextBlock x:ConnectionId='2' x:Name="today" Grid.Row="2" FontSize="15"  Grid.Column="0" Grid.RowSpan="2" Text="Today's Weather" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <ComboBox x:ConnectionId='3' x:Name="comboBox"  Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,0" Width="200">
             <ComboBoxItem>London</ComboBoxItem>
             <ComboBoxItem>Hamilton</ComboBoxItem>
             <ComboBoxItem>Waterloo</ComboBoxItem>
         </ComboBox>
         <Image x:ConnectionId='4' x:Name="weatherIcon" Grid.Column="2" Grid.Row="2" Source="Assets/Logo.png" Stretch="Uniform"/>
         <TextBlock x:ConnectionId='5' x:Name="cityNameTB"  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  HorizontalAlignment="Center" Text="TextBlock" VerticalAlignment="Center" FontSize="60"/>
-
+        <TextBlock x:ConnectionId='6' x:Name="secondDay"  Grid.Column="1" Grid.Row="2" Grid.RowSpan="2"  HorizontalAlignment="Center" Text="Second Day weather" VerticalAlignment="Center" FontSize="15"/>
+        <TextBlock x:ConnectionId='7' x:Name="thirdDay"  Grid.Column="2" Grid.Row="2" Grid.RowSpan="2"  HorizontalAlignment="Center" Text="Third Day Weather" VerticalAlignment="Center" FontSize="15"/>
+        <TextBlock x:ConnectionId='8' x:Name="fourthDay"  Grid.Column="3" Grid.Row="2" Grid.RowSpan="2"  HorizontalAlignment="Center" Text="Fourth Day Weather" VerticalAlignment="Center" FontSize="15"/>
+        <TextBlock x:ConnectionId='9' x:Name="fifthDay"  Grid.Column="4" Grid.Row="2" Grid.RowSpan="2"  HorizontalAlignment="Center" Text="Fifth Day Weather" VerticalAlignment="Center" FontSize="15"/>
     </Grid>
 
 

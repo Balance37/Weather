@@ -42,7 +42,6 @@ namespace Weather
         public MainPage()
         {
             this.InitializeComponent();
-            textBlock123.Text = "City: ";
 
         }
 
@@ -63,7 +62,7 @@ namespace Weather
 
                 response = await
                     client.GetAsync(
-                        "http://api.openweathermap.org/data/2.5/weather?id=" + cityId.ToString() + "&appid=23dde959b0c9a19b586ed9af3bbc8868").ConfigureAwait(continueOnCapturedContext: false);
+                        "http://api.openweathermap.org/data/2.5/weather?id=" + cityId.ToString() + "&appid=23dde959b0c9a19b586ed9af3bbc8868&units=metric").ConfigureAwait(continueOnCapturedContext: false);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -83,21 +82,82 @@ namespace Weather
             return weatherInfo;
         }
 
+        async Task<string[]> FutureWeather(int cityId)
+        {
+            //0.cityName; 1.temp_min; 2.temp_max; 3.windSpeed; 4.windDegree; 5. weatherConditionMain; 6.iconId;
+            string[] weatherInfo = new string[16];
+
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response;
+
+                response = await
+                    client.GetAsync(
+                        "http://api.openweathermap.org/data/2.5/forecast?id=" + cityId.ToString() + "&cnt=4&appid=23dde959b0c9a19b586ed9af3bbc8868&units=metric").ConfigureAwait(continueOnCapturedContext: false);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    dynamic content1 = JsonConvert.DeserializeObject(content);
+
+                    weatherInfo[0] = content1.list[0].dt_txt;
+                    weatherInfo[1] = content1.list[0].weather[0].main;
+                    weatherInfo[2] = content1.list[0].main.temp;
+                    weatherInfo[3] = content1.list[0].main.humidity;
+                    weatherInfo[4] = content1.list[1].dt_txt;
+                    weatherInfo[5] = content1.list[1].weather[0].main;
+                    weatherInfo[6] = content1.list[1].main.temp;
+                    weatherInfo[7] = content1.list[1].main.humidity;
+                    weatherInfo[8] = content1.list[2].dt_txt;
+                    weatherInfo[9] = content1.list[2].weather[0].main;
+                    weatherInfo[10] = content1.list[2].main.temp;
+                    weatherInfo[11] = content1.list[2].main.humidity;
+                    weatherInfo[12] = content1.list[3].dt_txt;
+                    weatherInfo[13] = content1.list[3].weather[0].main;
+                    weatherInfo[14] = content1.list[3].main.temp;
+                    weatherInfo[15] = content1.list[3].main.humidity;
+                }
+            }
+            return weatherInfo;
+        }
+
+
         private async void button_Click(object sender, RoutedEventArgs e)
         {
             ComboBoxItem typeItem = (ComboBoxItem)comboBox.SelectedItem;
             string value = typeItem.Content.ToString();
             cityId = CityID(value);
             string[] weatherInfo = await RunAsync(cityId);
+            string[] futureInfo = await FutureWeather(cityId);
             cityNameTB.Text = weatherInfo[0];
             //
-            textBlock123.Text = "Minimum Temperature: " + weatherInfo[1] + "\n"
+            today.Text = "Minimum Temperature: " + weatherInfo[1] + "\n"
                 + "Max Temperature: " + weatherInfo[2] + "\n"
                 + "Wind speed: " + weatherInfo[3] + "\n"
                 + "Wind degree: " + weatherInfo[4] + "\n"
                 + "Weather condition: " + weatherInfo[5] + "\n"
                 + "Weather icon: " + weatherInfo[6] + "\n"
                 + "Weather humidity" + weatherInfo[7] + "\n"
+                ;
+            secondDay.Text = "Date" + futureInfo[0] + "\n"
+                + "Weather condition: " + futureInfo[1] + "\n"
+                + "Temperature: " + futureInfo[2] + "\n"
+                + "Humidity: " + futureInfo[3] + "\n"
+                ;
+            thirdDay.Text = "Date" + futureInfo[0] + "\n"
+                + "Weather condition: " + futureInfo[1] + "\n"
+                + "Temperature: " + futureInfo[2] + "\n"
+                + "Humidity: " + futureInfo[3] + "\n"
+                ;
+            fourthDay.Text = "Date" + futureInfo[0] + "\n"
+                + "Weather condition: " + futureInfo[1] + "\n"
+                + "Temperature: " + futureInfo[2] + "\n"
+                + "Humidity: " + futureInfo[3] + "\n"
+                ;
+            fifthDay.Text = "Date" + futureInfo[0] + "\n"
+                + "Weather condition: " + futureInfo[1] + "\n"
+                + "Temperature: " + futureInfo[2] + "\n"
+                + "Humidity: " + futureInfo[3] + "\n"
                 ;
             //string temperature = 
         }
